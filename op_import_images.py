@@ -236,9 +236,9 @@ class ImagePlaneBase():
         name='Material Type',
         items=[
         ('EMISSION', 'Emission', ''),
-        ('EMISSION_ALPHA', 'Emission BSDF + Alpha', ''),
+        # ('EMISSION_ALPHA', 'Emission BSDF + Alpha', ''),
         ('DIFFUSE', 'Diffuse BSDF', ''),
-        ('DIFFUSE_ALPHA', 'Diffuse BSDF + Alpha', ''),
+        # ('DIFFUSE_ALPHA', 'Diffuse BSDF + Alpha', ''),
         ]
     )
 
