@@ -20,8 +20,8 @@
 
 bl_info = {
     "name": "Import images as planes",
-    "author": "Bassam Kurdali, Fabian Fricke, Adam Wiseman",
-    "version": (2, 0, 0),
+    "author": "Florian Meyer (tstscr), mont29, matali, Ted Schundler (SpkyElctrc)",
+    "version": (4, 0, 0),
     "blender": (2, 80, 0),
     "location": "Add Mesh Menu and import Menu",
     "description": "Import images as planes",
