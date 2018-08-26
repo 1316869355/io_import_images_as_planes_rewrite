@@ -23,7 +23,7 @@ bl_info = {
     "author": "Florian Meyer (tstscr), mont29, matali, Ted Schundler (SpkyElctrc)",
     "version": (4, 0, 0),
     "blender": (2, 80, 0),
-    "location": "Add Mesh Menu and import Menu",
+    "location": "Add Mesh Menu -- Import Menu -- Texture Node Properties -- Image Editor > Image",
     "description": "Import images as planes",
     "wiki_url": "",
     "category": "Import-Export",
