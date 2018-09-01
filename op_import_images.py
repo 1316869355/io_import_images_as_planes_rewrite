@@ -215,7 +215,7 @@ def image_to_plane(self, context, path):
     obj = image_plane_generator(self, context, img)
     return obj
 
-class ImagePlaneBase():
+class IIAP_Base:
     """Base Class. Holds the options for scaling materials, ..."""
     reuse_existing: BoolProperty(
         name='Reuse existing datablocks',
@@ -243,7 +243,7 @@ class ImagePlaneBase():
     )
 
 
-class OBJECT_OT_import_images_as_planes(ImagePlaneBase, Operator, ImportHelper, AddObjectHelper):
+class OBJECT_OT_import_images_as_planes(IIAP_Base, Operator, ImportHelper, AddObjectHelper):
     """Import Images as planes Operator"""
     bl_idname = 'io.import_images_as_planes'
     bl_label = 'Import images as planes'
@@ -265,6 +265,7 @@ class OBJECT_OT_import_images_as_planes(ImagePlaneBase, Operator, ImportHelper, 
 
     def execute(self, context):
         print('\nIMPORTING IMAGES')
+        print(self.filepath)
         if not self.files:
             print('No Files selected. CANCELLING')
             return {'CANCELLED'}
@@ -278,7 +279,7 @@ class OBJECT_OT_import_images_as_planes(ImagePlaneBase, Operator, ImportHelper, 
 
 
 
-class IMAGE_OT_image_to_plane(ImagePlaneBase, Operator, AddObjectHelper):
+class IMAGE_OT_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
     """Create imageplane from one image Operator"""
     bl_idname = 'image.image_to_plane'
     bl_label = 'Plane from image'
@@ -301,7 +302,7 @@ class IMAGE_OT_image_to_plane(ImagePlaneBase, Operator, AddObjectHelper):
         return {'FINISHED'}
 
 
-class NODE_OT_texture_image_to_plane(ImagePlaneBase, Operator, AddObjectHelper):
+class NODE_OT_texture_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
     """Create imageplane from texture node image Operator"""
     bl_idname = 'io.texture_image_to_plane'
     bl_label = 'Plane from texture node'
