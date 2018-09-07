@@ -1,26 +1,27 @@
+'''import images operators'''
+
 import os
-import bpy, bmesh
+import bmesh
 from mathutils import Vector, Matrix
 
+import bpy
 from bpy.types import (
     Operator,
-    OperatorFileListElement
-)
+    OperatorFileListElement)
 from bpy.props import (
-    FloatProperty,
+    #FloatProperty,
     EnumProperty,
     BoolProperty,
-    IntProperty,
+    #IntProperty,
     StringProperty,
-    FloatVectorProperty,
-    CollectionProperty,
-)
+    #FloatVectorProperty,
+    CollectionProperty)
 
 from bpy_extras.image_utils import load_image
 from bpy_extras.io_utils import ImportHelper
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
 
-baseverts = (
+BASEVERTS = (
     Vector((-0.5,-0.5, 0)), # bottom left
     Vector(( 0.5,-0.5, 0)), # bottom right
     Vector(( 0.5, 0.5, 0)), # top right
@@ -34,23 +35,27 @@ def loaded_image(path):
     return None
 
 def exisisting_material(material_name):
+    '''return material of material_name if there'''
     for material in bpy.data.materials:
         if material.name == material_name:
             return material
     return None
 
 def existing_mesh(mesh_name):
+    '''return mesh of mesh_name if there'''
     for mesh in bpy.data.meshes:
         if mesh.name == mesh_name:
             return mesh
     return None
 
 def delete_nodes_of_bl_idname(nodes, bl_idname):
+    '''delete nodes of bl_idname'''
     for node in nodes:
         if node.bl_idname == bl_idname:
             nodes.remove(node)
 
 def return_material_output_node(nodes):
+    '''return material output node'''
     for node in nodes:
         if node.bl_idname == 'ShaderNodeOutputMaterial':
             return node
@@ -59,8 +64,9 @@ def return_material_output_node(nodes):
     return material_output
 
 def create_mesh(self, img):
+    '''create new mesh for img'''
     bm = bmesh.new()
-    for v in baseverts:
+    for v in BASEVERTS:
         bm.verts.new(v)
     bm.verts.ensure_lookup_table()
     bm.faces.new(bm.verts)
@@ -70,18 +76,19 @@ def create_mesh(self, img):
     return mesh
 
 def set_mesh_verticies(self, mesh, img):
+    '''take mesh and transform to match settings'''
     bm = bmesh.new()
     bm.from_mesh(mesh)
     bm.verts.ensure_lookup_table()
 
     # Reset to base coordiantes
     for i, v in enumerate(bm.verts):
-        v.co = baseverts[i]
+        v.co = BASEVERTS[i]
 
     # Scale for x-aspect ratio
     aspect_x = img.size[0] / img.size[1]
     for i, v in enumerate(bm.verts):
-        v.co.x = baseverts[i].x * aspect_x
+        v.co.x = BASEVERTS[i].x * aspect_x
 
     # Transform according to origin setting
     if not self.origin == 'CENTER':
@@ -102,6 +109,7 @@ def set_mesh_verticies(self, mesh, img):
     bm.to_mesh(mesh)
 
 def create_emission_material(self, img, material):
+    '''return emission material without alpha'''
     node_tree = material.node_tree
     nodes = node_tree.nodes
     links = node_tree.links
@@ -123,6 +131,7 @@ def create_emission_material(self, img, material):
     return material
 
 def create_diffuse_material(self, img, material):
+    '''return diffuse material without alpha'''
     node_tree = material.node_tree
     nodes = node_tree.nodes
     links = node_tree.links
@@ -144,13 +153,14 @@ def create_diffuse_material(self, img, material):
     return material
 
 def create_material(self, img):
+    '''take img, return material with image applied'''
     material = exisisting_material(img.name)
     if not material or not self.reuse_existing:
         material = bpy.data.materials.new(img.name)
     material.use_nodes = True
     node_tree = material.node_tree
-    nodes = node_tree.nodes
-    links = node_tree.links
+    # nodes = node_tree.nodes
+    # links = node_tree.links
 
     # Delete all but output Node to start clean
     for node in node_tree.nodes:
@@ -165,6 +175,7 @@ def create_material(self, img):
 
 
 def image_plane_generator(self, context, img):
+    '''take image, create obj'''
     mesh = existing_mesh(img.name)
     if not mesh or not self.reuse_existing:
         mesh = create_mesh(self, img)
@@ -182,6 +193,7 @@ def image_plane_generator(self, context, img):
     return obj
 
 def import_images_as_planes(self, context):
+    '''import as planes main function'''
     image_planes = []
     for file in self.files:
         path = os.path.join(self.directory, file.name)
@@ -203,6 +215,7 @@ def import_images_as_planes(self, context):
     return image_planes
 
 def image_to_plane(self, context, path):
+    '''take image path, return image plane object'''
     # Check if file even exists
     if not os.path.exists(path):
         print('No image found. Filepath not valid.')
@@ -219,26 +232,26 @@ class IIAP_Base:
     """Base Class. Holds the options for scaling materials, ..."""
     reuse_existing: BoolProperty(
         name='Reuse existing datablocks',
-        description='When importing reuse existing meshes and materials instead of creating new ones.',
+        description='Reuse existing meshes and materials instead of creating new ones.',
         default=True,
     )
     origin: EnumProperty(
         name='Origin Location',
         items=[
-        ('CENTER', 'Center', ''),
-        ('BL', 'Bottom Left', ''),
-        ('BR', 'Bottom Right', ''),
-        ('TR', 'Top Right', ''),
-        ('TL', 'Top Left', '')
+            ('CENTER', 'Center', ''),
+            ('BL', 'Bottom Left', ''),
+            ('BR', 'Bottom Right', ''),
+            ('TR', 'Top Right', ''),
+            ('TL', 'Top Left', '')
         ]
     )
     materialtype: EnumProperty(
         name='Material Type',
         items=[
-        ('EMISSION', 'Emission', ''),
-        # ('EMISSION_ALPHA', 'Emission BSDF + Alpha', ''),
-        ('DIFFUSE', 'Diffuse BSDF', ''),
-        # ('DIFFUSE_ALPHA', 'Diffuse BSDF + Alpha', ''),
+            ('EMISSION', 'Emission', ''),
+            # ('EMISSION_ALPHA', 'Emission BSDF + Alpha', ''),
+            ('DIFFUSE', 'Diffuse BSDF', ''),
+            # ('DIFFUSE_ALPHA', 'Diffuse BSDF + Alpha', ''),
         ]
     )
 
@@ -260,10 +273,12 @@ class OBJECT_OT_import_images_as_planes(IIAP_Base, Operator, ImportHelper, AddOb
     )
 
     @classmethod
-    def poll(self, context):
+    def poll(cls, context):
+        '''should always be possible'''
         return True
 
     def execute(self, context):
+        '''import image create imageplane'''
         print('\nIMPORTING IMAGES')
         print(self.filepath)
         if not self.files:
@@ -287,13 +302,15 @@ class IMAGE_OT_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
-    def poll(self, context):
+    def poll(cls, context):
+        '''In image editor and image is there'''
         # There is no image to work with
         if not context.space_data.type == 'IMAGE_EDITOR' or not context.space_data.image:
             return False
         return True
 
     def execute(self, context):
+        '''imageplane from image in image editor'''
         path = context.space_data.image.filepath_from_user()
         image_plane = image_to_plane(self, context, path)
         if not image_plane:
@@ -310,19 +327,21 @@ class NODE_OT_texture_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
-    def poll(self, context):
+    def poll(cls, context):
+        '''If texture node with image is active'''
         sd = context.space_data
         # There is no image to work with
         if (not sd.type == 'NODE_EDITOR'
-        or not sd.node_tree
-        or not sd.node_tree.type == 'SHADER'
-        or not sd.node_tree.nodes.active
-        or not sd.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
-        or not sd.node_tree.nodes.active.image):
+                or not sd.node_tree
+                or not sd.node_tree.type == 'SHADER'
+                or not sd.node_tree.nodes.active
+                or not sd.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
+                or not sd.node_tree.nodes.active.image):
             return False
         return True
 
     def execute(self, context):
+        '''imageplane from selected texture node'''
         sd = context.space_data
         path = sd.node_tree.nodes.active.image.filepath_from_user()
         image_plane = image_to_plane(self, context, path)
