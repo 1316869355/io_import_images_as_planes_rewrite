@@ -1,10 +1,6 @@
 import bpy
-from bpy.types import (
-    Operator,
-)
-from bpy.props import (
-    BoolProperty
-)
+from bpy.props import BoolProperty
+from bpy.types import Operator
 
 
 class IIAP_OP_delete_unused_image_datablocks(Operator):

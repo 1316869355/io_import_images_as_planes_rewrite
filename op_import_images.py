@@ -195,9 +195,9 @@ def import_images_as_planes(self, context):
 
         # Check if file is usable image even
 
-        img = loaded_image(path)
-        if not img:
-            img = load_image(path)
+        # img = loaded_image(path)
+        # if not img:
+        img = load_image(path, check_existing=True, force_reload=True)
 
         obj = image_plane_generator(self, context, img)
         image_planes.append(obj)
@@ -211,9 +211,9 @@ def image_to_plane(self, context, path):
         print('No image found. Filepath not valid.')
         return None
 
-    img = loaded_image(path)
-    if not img:
-        img = load_image(path)
+    # img = loaded_image(path)
+    # if not img:
+    img = load_image(path, check_existing=True, force_reload=True)
 
     obj = image_plane_generator(self, context, img)
     return obj
@@ -246,7 +246,7 @@ class IIAP_BASE_class:
     )
 
 
-class IIAP_OPs_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, AddObjectHelper):
+class IIAP_OP_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, AddObjectHelper):
     """Import Images as planes Operator"""
     bl_idname = 'io.import_images_as_planes'
     bl_label = 'Import images as planes'
