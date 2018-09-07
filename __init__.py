@@ -19,21 +19,21 @@
 # <pep8 compliant>
 
 bl_info = {
-	"name": "Import images as planes",
-	"author": "Florian Meyer (tstscr), mont29, matali, Ted Schundler (SpkyElctrc)",
-	"version": (4, 0, 0),
-	"blender": (2, 80, 0),
-	"location": "Add Mesh Menu -- Import Menu -- Texture Node Properties -- Image Editor > Image",
-	"description": "Import images as planes",
-	"wiki_url": "",
-	"category": "Import-Export",
+    "name": "Import images as planes",
+    "author": "Florian Meyer (tstscr), mont29, matali, Ted Schundler (SpkyElctrc)",
+    "version": (4, 0, 0),
+    "blender": (2, 80, 0),
+    "location": "Add Mesh Menu -- Import Menu -- Texture Node Properties -- Image Editor > Image",
+    "description": "Import images as planes",
+    "wiki_url": "",
+    "category": "Import-Export",
 }
 
 if 'bpy' in locals():
-	from importlib import reload
-	reload(op_import_images)
-	reload(op_delete_unused_image_datablocks)
-	reload(op_delete_unused_material_datablocks)
+    from importlib import reload
+    reload(op_import_images)
+    reload(op_delete_unused_image_datablocks)
+    reload(op_delete_unused_material_datablocks)
 
 import bpy
 
@@ -42,42 +42,42 @@ from io_import_images_as_planes import op_delete_unused_image_datablocks
 from io_import_images_as_planes import op_delete_unused_material_datablocks
 
 def btn_import_images(self, context):
-	layout = self.layout
-	layout.operator(op_import_images.OBJECT_OT_import_images_as_planes.bl_idname)
+    layout = self.layout
+    layout.operator(op_import_images.OBJECT_OT_import_images_as_planes.bl_idname)
 
 def btn_image_to_plane(self, context):
-	layout = self.layout
-	layout.operator(op_import_images.IMAGE_OT_image_to_plane.bl_idname)
+    layout = self.layout
+    layout.operator(op_import_images.IMAGE_OT_image_to_plane.bl_idname)
 
 def btn_texture_image_to_plane(self, context):
-	layout = self.layout
-	layout.operator(op_import_images.NODE_OT_texture_image_to_plane.bl_idname)
+    layout = self.layout
+    layout.operator(op_import_images.NODE_OT_texture_image_to_plane.bl_idname)
 
 classes = (
-	op_import_images.OBJECT_OT_import_images_as_planes,
-	op_import_images.IMAGE_OT_image_to_plane,
-	op_import_images.NODE_OT_texture_image_to_plane,
-	op_delete_unused_image_datablocks.IMAGE_OT_delete_unused_image_datablocks,
-	op_delete_unused_material_datablocks.MATERIAL_OT_delete_unused_image_datablocks
+    op_import_images.OBJECT_OT_import_images_as_planes,
+    op_import_images.IMAGE_OT_image_to_plane,
+    op_import_images.NODE_OT_texture_image_to_plane,
+    op_delete_unused_image_datablocks.IMAGE_OT_delete_unused_image_datablocks,
+    op_delete_unused_material_datablocks.MATERIAL_OT_delete_unused_image_datablocks
 )
 
 def register():
-	from bpy.utils import register_class
-	for cls in classes:
-		register_class(cls)
+    from bpy.utils import register_class
+    for cls in classes:
+        register_class(cls)
 
-	bpy.types.VIEW3D_MT_add.prepend(btn_import_images)
-	bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
-	bpy.types.NODE_PT_active_node_properties.prepend(btn_texture_image_to_plane)
+    bpy.types.VIEW3D_MT_add.prepend(btn_import_images)
+    bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
+    bpy.types.NODE_PT_active_node_properties.prepend(btn_texture_image_to_plane)
 
 def unregister():
-	from bpy.utils import unregister_class
-	for cls in classes:
-		unregister_class(cls)
+    from bpy.utils import unregister_class
+    for cls in classes:
+        unregister_class(cls)
 
-	bpy.types.VIEW3D_MT_add.remove(btn_import_images)
-	bpy.types.IMAGE_MT_image.remove(btn_image_to_plane)
-	bpy.types.NODE_PT_active_node_properties.remove(btn_texture_image_to_plane)
+    bpy.types.VIEW3D_MT_add.remove(btn_import_images)
+    bpy.types.IMAGE_MT_image.remove(btn_image_to_plane)
+    bpy.types.NODE_PT_active_node_properties.remove(btn_texture_image_to_plane)
 
 if __name__ == "__main__":
-	register()
+    register()

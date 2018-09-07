@@ -13,13 +13,12 @@ from bpy_extras.object_utils import AddObjectHelper, object_data_add
 from mathutils import Matrix, Vector
 
 BASEVERTS = (
-    Vector((-0.5,-0.5, 0)), # bottom left
-    Vector(( 0.5,-0.5, 0)), # bottom right
-    Vector(( 0.5, 0.5, 0)), # top right
+    Vector((-0.5, -0.5, 0)), # bottom left
+    Vector((0.5, -0.5, 0)), # bottom right
+    Vector((0.5, 0.5, 0)), # top right
     Vector((-0.5, 0.5, 0))) # top left
 
 def loaded_image(path):
-    """Returns an image datablock if an image with path is already loaded"""
     for img in bpy.data.images:
         if img.filepath_from_user() == path:
             return img
@@ -54,7 +53,7 @@ def return_material_output_node(nodes):
     material_output.location = (300, 300)
     return material_output
 
-def create_mesh(self, img):
+def create_mesh(img):
     '''create new mesh for img'''
     bm = bmesh.new()
     for v in BASEVERTS:
@@ -99,7 +98,7 @@ def set_mesh_verticies(self, mesh, img):
 
     bm.to_mesh(mesh)
 
-def create_emission_material(self, img, material):
+def create_emission_material(img, material):
     '''return emission material without alpha'''
     node_tree = material.node_tree
     nodes = node_tree.nodes
@@ -121,7 +120,7 @@ def create_emission_material(self, img, material):
 
     return material
 
-def create_diffuse_material(self, img, material):
+def create_diffuse_material(img, material):
     '''return diffuse material without alpha'''
     node_tree = material.node_tree
     nodes = node_tree.nodes
@@ -159,9 +158,9 @@ def create_material(self, img):
             node_tree.nodes.remove(node)
 
     if self.materialtype == 'EMISSION':
-        material = create_emission_material(self, img, material)
+        material = create_emission_material(img, material)
     elif self.materialtype == 'DIFFUSE':
-        material = create_diffuse_material(self, img, material)
+        material = create_diffuse_material(img, material)
     return material
 
 
@@ -169,7 +168,7 @@ def image_plane_generator(self, context, img):
     '''take image, create obj'''
     mesh = existing_mesh(img.name)
     if not mesh or not self.reuse_existing:
-        mesh = create_mesh(self, img)
+        mesh = create_mesh(img)
 
     set_mesh_verticies(self, mesh, img)
 
@@ -219,7 +218,7 @@ def image_to_plane(self, context, path):
     obj = image_plane_generator(self, context, img)
     return obj
 
-class IIAP_Base:
+class IIAP_BASE_class:
     """Base Class. Holds the options for scaling materials, ..."""
     reuse_existing: BoolProperty(
         name='Reuse existing datablocks',
@@ -247,7 +246,7 @@ class IIAP_Base:
     )
 
 
-class OBJECT_OT_import_images_as_planes(IIAP_Base, Operator, ImportHelper, AddObjectHelper):
+class IIAP_OPs_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, AddObjectHelper):
     """Import Images as planes Operator"""
     bl_idname = 'io.import_images_as_planes'
     bl_label = 'Import images as planes'
@@ -285,7 +284,7 @@ class OBJECT_OT_import_images_as_planes(IIAP_Base, Operator, ImportHelper, AddOb
 
 
 
-class IMAGE_OT_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
+class IIAP_OP_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
     """Create imageplane from one image Operator"""
     bl_idname = 'image.image_to_plane'
     bl_label = 'Plane from image'
@@ -310,7 +309,7 @@ class IMAGE_OT_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
         return {'FINISHED'}
 
 
-class NODE_OT_texture_image_to_plane(IIAP_Base, Operator, AddObjectHelper):
+class IIAP_OP_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
     """Create imageplane from texture node image Operator"""
     bl_idname = 'io.texture_image_to_plane'
     bl_label = 'Plane from texture node'

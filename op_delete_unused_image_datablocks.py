@@ -7,7 +7,7 @@ from bpy.props import (
 )
 
 
-class IMAGE_OT_delete_unused_image_datablocks(Operator):
+class IIAP_OP_delete_unused_image_datablocks(Operator):
     """docstring for IMAGE_OT_delete_unused_image_datablocks."""
     bl_idname = 'image.delete_unused_image_datablocks'
     bl_label = 'Delete unused image(datablocks)'
@@ -20,7 +20,7 @@ class IMAGE_OT_delete_unused_image_datablocks(Operator):
     )
 
     @classmethod
-    def poll(self, context):
+    def poll(cls, context):
         return True
 
     def execute(self, context):
