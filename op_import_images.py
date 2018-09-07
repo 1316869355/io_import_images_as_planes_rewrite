@@ -1,25 +1,16 @@
 '''import images operators'''
 
 import os
+
 import bmesh
-from mathutils import Vector, Matrix
-
 import bpy
-from bpy.types import (
-    Operator,
-    OperatorFileListElement)
-from bpy.props import (
-    #FloatProperty,
-    EnumProperty,
-    BoolProperty,
-    #IntProperty,
-    StringProperty,
-    #FloatVectorProperty,
-    CollectionProperty)
-
+from bpy.props import (BoolProperty,  # FloatProperty,; IntProperty,; FloatVectorProperty,
+                       CollectionProperty, EnumProperty, StringProperty)
+from bpy.types import Operator, OperatorFileListElement
 from bpy_extras.image_utils import load_image
 from bpy_extras.io_utils import ImportHelper
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
+from mathutils import Matrix, Vector
 
 BASEVERTS = (
     Vector((-0.5,-0.5, 0)), # bottom left
