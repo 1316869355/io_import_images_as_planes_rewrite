@@ -117,6 +117,8 @@ def create_emission_material(img, material):
     image_texture.location = (-365, 300)
     # Link image_texture Output to emmision_shader Input
     links.new(emmision_shader.inputs[0], image_texture.outputs[0])
+    # make texture node the active node
+    nodes.active = image_texture
 
     return material
 
@@ -139,6 +141,8 @@ def create_diffuse_material(img, material):
     image_texture.location = (-365, 300)
     # Link image_texture Output to diffuse_shader Input
     links.new(diffuse_shader.inputs[0], image_texture.outputs[0])
+    # make texture node the active node
+    nodes.active = image_texture
 
     return material
 
@@ -312,7 +316,7 @@ class IIAP_OP_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
 class IIAP_OP_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
     """Create imageplane from texture node image Operator"""
     bl_idname = 'io.texture_image_to_plane'
-    bl_label = 'Plane from texture node'
+    bl_label = 'Create Imageplane'
     bl_description = 'Create plane with this image'
     bl_options = {'REGISTER', 'UNDO'}
 

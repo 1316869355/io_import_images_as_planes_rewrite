@@ -51,7 +51,10 @@ def btn_image_to_plane(self, context):
 
 def btn_texture_image_to_plane(self, context):
     layout = self.layout
-    layout.operator(op_import_images.IIAP_OP_texture_image_to_plane.bl_idname)
+    if (context.space_data.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
+    and context.space_data.node_tree.nodes.active.image):
+        layout.separator()
+        layout.operator(op_import_images.IIAP_OP_texture_image_to_plane.bl_idname)
 
 classes = (
     op_import_images.IIAP_OP_import_images_as_planes,
@@ -66,20 +69,22 @@ def register():
     for cls in classes:
         register_class(cls)
 
-    bpy.types.VIEW3D_MT_add.prepend(btn_import_images)
-    bpy.types.TOPBAR_MT_file_import.prepend(btn_import_images)
+    bpy.types.INFO_MT_mesh_add.prepend(btn_import_images)
+    bpy.types.INFO_MT_file_import.prepend(btn_import_images)
     bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
     bpy.types.NODE_PT_active_node_properties.prepend(btn_texture_image_to_plane)
+    bpy.types.NODE_MT_node.append(btn_texture_image_to_plane)
 
 def unregister():
     from bpy.utils import unregister_class
     for cls in reversed(classes):
         unregister_class(cls)
 
-    bpy.types.VIEW3D_MT_add.remove(btn_import_images)
-    bpy.types.TOPBAR_MT_file_import.remove(btn_import_images)
+    bpy.types.INFO_MT_mesh_add.remove(btn_import_images)
+    bpy.types.INFO_MT_file_import.remove(btn_import_images)
     bpy.types.IMAGE_MT_image.remove(btn_image_to_plane)
     bpy.types.NODE_PT_active_node_properties.remove(btn_texture_image_to_plane)
+    bpy.types.NODE_MT_node.remove(btn_texture_image_to_plane)
 
 if __name__ == "__main__":
     register()
