@@ -37,9 +37,9 @@ if 'bpy' in locals():
 
 import bpy
 
-from io_import_images_as_planes_new import op_import_images
-from io_import_images_as_planes_new import op_delete_unused_image_datablocks
-from io_import_images_as_planes_new import op_delete_unused_material_datablocks
+from io_import_images_as_planes import op_import_images
+from io_import_images_as_planes import op_delete_unused_image_datablocks
+from io_import_images_as_planes import op_delete_unused_material_datablocks
 
 def btn_import_images(self, context):
     layout = self.layout
