@@ -34,12 +34,14 @@ if 'bpy' in locals():
     reload(op_import_images)
     reload(op_delete_unused_image_datablocks)
     reload(op_delete_unused_material_datablocks)
+    reload(op_arange_objects)
 
 import bpy
 
 from io_import_images_as_planes import op_import_images
 from io_import_images_as_planes import op_delete_unused_image_datablocks
 from io_import_images_as_planes import op_delete_unused_material_datablocks
+from io_import_images_as_planes import op_arange_objects
 
 def btn_import_images(self, context):
     layout = self.layout
@@ -61,7 +63,8 @@ classes = (
     op_import_images.IIAP_OP_image_to_plane,
     op_import_images.IIAP_OP_texture_image_to_plane,
     op_delete_unused_image_datablocks.IIAP_OP_delete_unused_image_datablocks,
-    op_delete_unused_material_datablocks.IIAP_OP_delete_unused_image_datablocks
+    op_delete_unused_material_datablocks.IIAP_OP_delete_unused_image_datablocks,
+    op_arange_objects.IIAP_OP_arange_objects
 )
 
 def register():
