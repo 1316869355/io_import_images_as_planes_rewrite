@@ -1,5 +1,5 @@
 from math import (
-  ceil,
+    ceil,
 )
 import bpy
 from bpy.types import (
@@ -20,15 +20,16 @@ def calc_row_count(self, obs):
         return len(obs)
     return ceil(len(obs) / self.row_count)
 
+
 def arange_objects(self, context, obs):
-    count = len(obs)
-    center = context.scene.cursor_location
     obs_per_row = calc_row_count(self, obs)
 
     current_row = 0
     current_col = 0
     for i, ob in enumerate(obs):
-        ob.location = Vector((current_col * self.offset_x, current_row * self.offset_y * -1, 0)) + context.scene.cursor_location
+        ob.location = Vector((current_col * self.offset_x,
+                              current_row * self.offset_y * -1,
+                              0)) + context.scene.cursor_location
         current_col += 1
         if current_col == obs_per_row:
             current_col = 0
