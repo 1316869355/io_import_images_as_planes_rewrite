@@ -45,26 +45,27 @@ from io_import_images_as_planes import op_arange_objects
 
 def btn_import_images(self, context):
     layout = self.layout
-    layout.operator(op_import_images.IIAP_OP_import_images_as_planes.bl_idname)
+    layout.operator(op_import_images.IIAP_OT_import_images_as_planes.bl_idname)
 
 def btn_image_to_plane(self, context):
     layout = self.layout
-    layout.operator(op_import_images.IIAP_OP_image_to_plane.bl_idname)
+    layout.operator(op_import_images.IIAP_OT_image_to_plane.bl_idname)
 
 def btn_texture_image_to_plane(self, context):
     layout = self.layout
     if (context.space_data.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
             and context.space_data.node_tree.nodes.active.image):
         layout.separator()
-        layout.operator(op_import_images.IIAP_OP_texture_image_to_plane.bl_idname)
+        layout.operator(op_import_images.IIAP_OT_texture_image_to_plane.bl_idname)
 
 classes = (
-    op_import_images.IIAP_OP_import_images_as_planes,
-    op_import_images.IIAP_OP_image_to_plane,
-    op_import_images.IIAP_OP_texture_image_to_plane,
-    op_delete_unused_image_datablocks.IIAP_OP_delete_unused_image_datablocks,
-    op_delete_unused_material_datablocks.IIAP_OP_delete_unused_image_datablocks,
-    op_arange_objects.IIAP_OP_arange_objects
+    op_import_images.IIAP_OT_import_images_as_planes,
+    op_import_images.IIAP_OT_image_to_plane,
+    op_import_images.IIAP_OT_texture_image_to_plane,
+    op_delete_unused_image_datablocks.IIAP_OT_delete_unused_image_datablocks,
+    op_delete_unused_material_datablocks.IIAP_OT_delete_unused_image_datablocks,
+    op_arange_objects.OBJECT_OT_grid_arange,
+    op_arange_objects.OBJECT_GGT_grid_arange_gizmogroup,
 )
 
 def register():

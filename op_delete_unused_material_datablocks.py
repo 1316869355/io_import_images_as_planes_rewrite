@@ -3,7 +3,7 @@ from bpy.props import BoolProperty
 from bpy.types import Operator
 
 
-class IIAP_OP_delete_unused_image_datablocks(Operator):
+class IIAP_OT_delete_unused_image_datablocks(Operator):
     """docstring for IMAGE_OT_delete_unused_image_datablocks."""
     bl_idname = 'material.delete_unused_material_datablocks'
     bl_label = 'Delete unused material(datablocks)'

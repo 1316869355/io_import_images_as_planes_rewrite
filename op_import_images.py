@@ -250,7 +250,7 @@ class IIAP_BASE_class:
     )
 
 
-class IIAP_OP_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, AddObjectHelper):
+class IIAP_OT_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, AddObjectHelper):
     """Import Images as planes Operator"""
     bl_idname = 'io.import_images_as_planes'
     bl_label = 'Import images as planes'
@@ -288,7 +288,7 @@ class IIAP_OP_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, A
 
 
 
-class IIAP_OP_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
+class IIAP_OT_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
     """Create imageplane from one image Operator"""
     bl_idname = 'image.image_to_plane'
     bl_label = 'Plane from image'
@@ -313,7 +313,7 @@ class IIAP_OP_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
         return {'FINISHED'}
 
 
-class IIAP_OP_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
+class IIAP_OT_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper):
     """Create imageplane from texture node image Operator"""
     bl_idname = 'io.texture_image_to_plane'
     bl_label = 'Create Imageplane'
