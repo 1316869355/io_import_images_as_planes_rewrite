@@ -52,7 +52,7 @@ def btn_image_to_plane(self, context):
 def btn_texture_image_to_plane(self, context):
     layout = self.layout
     if (context.space_data.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
-    and context.space_data.node_tree.nodes.active.image):
+            and context.space_data.node_tree.nodes.active.image):
         layout.separator()
         layout.operator(op_import_images.IIAP_OP_texture_image_to_plane.bl_idname)
 
