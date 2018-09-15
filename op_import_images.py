@@ -18,6 +18,11 @@ BASEVERTS = (
     Vector((0.5, 0.5, 0)), # top right
     Vector((-0.5, 0.5, 0))) # top left
 
+def set_select(context, obs):
+    for ob in obs:
+        ob.select_set('SELECT')
+
+
 def loaded_image(path):
     for img in bpy.data.images:
         if img.filepath_from_user() == path:
@@ -282,6 +287,7 @@ class IIAP_OT_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, A
         if not image_planes:
             print('No image planes created. CANCELLING')
             return {'CANCELLED'}
+        set_select(context, image_planes)
         print('Created %d image planes' %(len(image_planes)))
         return {'FINISHED'}
 
