@@ -107,7 +107,7 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
 		return True
 
 	def widget_row_count_matrix(self, context, op):
-		mat = Matrix.Rotation(1.5, 4, 'X')
+		mat = Matrix.Rotation(1.570796, 4, 'X')
 		mat.translation = context.scene.cursor_location
 		mat.translation.x += op.offset_x * -1
 		return mat
