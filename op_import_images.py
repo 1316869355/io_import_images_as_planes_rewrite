@@ -274,7 +274,7 @@ class IIAP_OT_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, A
 	@classmethod
 	def poll(cls, context):
 		'''should always be possible'''
-		return True
+		return context.mode == 'OBJECT'
 
 	def execute(self, context):
 		'''import image create imageplane'''
