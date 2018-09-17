@@ -63,7 +63,7 @@ class OBJECT_OT_grid_arange(Operator):
 	def poll(cls, context):
 		'''If texture node with image is active'''
 		obs = context.selected_objects
-		return (obs and context.mode == 'OBJECT')
+		return (len(obs) > 1 and context.mode == 'OBJECT')
 
 	def execute(self, context):
 		'''imageplane from selected texture node'''
@@ -92,24 +92,21 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
 	def my_target_operator(context):
 		wm = context.window_manager
 		op = wm.operators[-1] if wm.operators else None
-		if op.bl_idname == 'OBJECT_OT_grid_arange':
+		if isinstance(op, OBJECT_OT_grid_arange):
 			return op
+		wm.gizmo_group_type_remove(OBJECT_GGT_grid_arange_gizmogroup.bl_idname)
+		print('removed gizmo')
 		return None
 
 	@classmethod
 	def poll(cls, context):
-		op = cls.my_target_operator(context)
-		if op is None:
-			wm = context.window_manager
-			wm.gizmo_group_type_remove(OBJECT_GGT_grid_arange_gizmogroup.bl_idname)
-			print('removed gizmo')
-			return False
-		return True
+		return cls.my_target_operator(context)
 
 	def widget_row_count_matrix(self, context, op):
 		mat = Matrix.Rotation(1.570796, 4, 'X')
 		mat.translation = context.scene.cursor_location
-		mat.translation.x += op.offset_x * -1
+		mat.translation.x -= 1
+		mat.translation.y += 1
 		return mat
 
 	def setup(self, context):
