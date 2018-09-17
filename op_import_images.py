@@ -353,10 +353,10 @@ class IIAP_OT_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper)
         sd = context.space_data
         # There is no image to work with
         if (not sd.type == 'NODE_EDITOR'
-                or not sd.node_tree
-                or not sd.node_tree.type == 'SHADER'
-                or not sd.node_tree.nodes.active
-                or not sd.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
+            or not sd.node_tree
+            or not sd.node_tree.type == 'SHADER'
+            or not sd.node_tree.nodes.active
+            or not sd.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
                 or not sd.node_tree.nodes.active.image):
             return False
         return True
