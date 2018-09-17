@@ -273,7 +273,7 @@ class IIAP_OT_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, A
 
 	@classmethod
 	def poll(cls, context):
-		'''should always be possible'''
+		'''only in object mode?'''
 		return context.mode == 'OBJECT'
 
 	def execute(self, context):
