@@ -1,5 +1,6 @@
 from math import (
 	ceil,
+	pi
 )
 import bpy
 from bpy.types import (
@@ -103,7 +104,7 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
 		return cls.my_target_operator(context)
 
 	def widget_row_count_matrix(self, context, op):
-		mat = Matrix.Rotation(1.570796, 4, 'X')
+		mat = Matrix.Rotation(pi / 2, 4, 'X')
 		mat.translation = context.scene.cursor_location
 		mat.translation.x -= 1
 		mat.translation.y += 1
