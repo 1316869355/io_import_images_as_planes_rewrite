@@ -289,7 +289,8 @@ class IIAP_OT_import_images_as_planes(IIAP_BASE_class, Operator, ImportHelper, A
 			return {'CANCELLED'}
 		set_select(context, image_planes)
 		print('Created %d image planes' %(len(image_planes)))
-		bpy.ops.object.grid_arange()
+		if len(image_planes) > 1:
+			bpy.ops.object.grid_arange()
 		return {'FINISHED'}
 
 
