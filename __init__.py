@@ -33,6 +33,7 @@ if 'bpy' in locals():
     from importlib import reload
     reload(op_import_images)
     reload(op_arange_objects)
+    reload(op_apply_as_decal)
     reload(op_delete_unused_image_datablocks)
     reload(op_delete_unused_material_datablocks)
 
@@ -40,6 +41,7 @@ import bpy
 
 from io_import_images_as_planes_rewrite import op_import_images
 from io_import_images_as_planes_rewrite import op_arange_objects
+from io_import_images_as_planes_rewrite import op_apply_as_decal
 from io_import_images_as_planes_rewrite import op_delete_unused_image_datablocks
 from io_import_images_as_planes_rewrite import op_delete_unused_material_datablocks
 
@@ -70,6 +72,7 @@ classes = (
     op_import_images.IIAP_OT_import_images_as_planes,
     op_import_images.IIAP_OT_image_to_plane,
     op_import_images.IIAP_OT_texture_image_to_plane,
+    op_apply_as_decal.OBJECT_OT_apply_as_decal,
     op_delete_unused_image_datablocks.IIAP_OT_delete_unused_image_datablocks,
     op_delete_unused_material_datablocks.IIAP_OT_delete_unused_image_datablocks,
     op_arange_objects.OBJECT_OT_grid_arange,
