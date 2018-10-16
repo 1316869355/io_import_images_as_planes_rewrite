@@ -82,8 +82,7 @@ def register():
     bpy.types.VIEW3D_MT_mesh_add.prepend(btn_import_images)
     bpy.types.TOPBAR_MT_file_import.prepend(btn_import_images)
     bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
-    bpy.types.NODE_PT_active_node_properties.prepend(
-        btn_texture_image_to_plane)
+    bpy.types.NODE_PT_active_node_properties.prepend(btn_texture_image_to_plane)
     bpy.types.NODE_MT_node.append(btn_texture_image_to_plane)
 
 
