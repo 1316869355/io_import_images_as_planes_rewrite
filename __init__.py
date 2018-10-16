@@ -32,28 +32,31 @@ bl_info = {
 if 'bpy' in locals():
     from importlib import reload
     reload(op_import_images)
+    reload(op_arange_objects)
     reload(op_delete_unused_image_datablocks)
     reload(op_delete_unused_material_datablocks)
-    reload(op_arange_objects)
 
 import bpy
 
 from io_import_images_as_planes_rewrite import op_import_images
+from io_import_images_as_planes_rewrite import op_arange_objects
 from io_import_images_as_planes_rewrite import op_delete_unused_image_datablocks
 from io_import_images_as_planes_rewrite import op_delete_unused_material_datablocks
-from io_import_images_as_planes_rewrite import op_arange_objects
 
 
+# Import Button
 def btn_import_images(self, context):
     layout = self.layout
     layout.operator(op_import_images.IIAP_OT_import_images_as_planes.bl_idname)
 
 
+# Image Editor Button
 def btn_image_to_plane(self, context):
     layout = self.layout
     layout.operator(op_import_images.IIAP_OT_image_to_plane.bl_idname)
 
 
+# Node Editor Button
 def btn_texture_image_to_plane(self, context):
     layout = self.layout
     if (context.space_data.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
