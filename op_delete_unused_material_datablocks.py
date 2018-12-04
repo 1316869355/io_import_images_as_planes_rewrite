@@ -3,8 +3,8 @@ from bpy.props import BoolProperty
 from bpy.types import Operator
 
 
-class IIAP_OT_delete_unused_image_datablocks(Operator):
-    """docstring for IMAGE_OT_delete_unused_image_datablocks."""
+class IIAP_OT_delete_unused_material_datablocks(Operator):
+    """docstring for MATERIAL_OT_delete_unused_image_datablocks."""
     bl_idname = 'material.delete_unused_material_datablocks'
     bl_label = 'Delete unused material(datablocks)'
     bl_description = 'Delete unused material datablocks (or all with shift pressed)'
@@ -29,3 +29,14 @@ class IIAP_OT_delete_unused_image_datablocks(Operator):
         self.all = event.shift
         self.execute(context)
         return {'FINISHED'}
+
+def register():
+    from bpy.utils import register_class
+    register_class(IIAP_OT_delete_unused_material_datablocks)
+
+def unregister():
+    from bpy.utils import unregister_class
+    unregister_class(IIAP_OT_delete_unused_material_datablocks)
+
+if __name__ == "__main__":
+    register()

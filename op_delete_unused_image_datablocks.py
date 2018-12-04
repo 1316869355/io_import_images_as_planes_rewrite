@@ -29,3 +29,14 @@ class IIAP_OT_delete_unused_image_datablocks(Operator):
         self.all = event.shift
         self.execute(context)
         return {'FINISHED'}
+
+def register():
+    from bpy.utils import register_class
+    register_class(IIAP_OT_delete_unused_image_datablocks)
+
+def unregister():
+    from bpy.utils import unregister_class
+    unregister_class(IIAP_OT_delete_unused_image_datablocks)
+
+if __name__ == "__main__":
+    register()

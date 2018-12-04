@@ -137,3 +137,17 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
         # print('REFRESHING GIZMO')
         mpr = self.widget_row_count
         mpr.matrix_basis = self.widget_row_count_matrix(context, op)
+
+
+def register():
+    from bpy.utils import register_class
+    register_class(OBJECT_OT_grid_arange)
+    register_class(OBJECT_GGT_grid_arange_gizmogroup)
+
+def unregister():
+    from bpy.utils import unregister_class
+    unregister_class(OBJECT_GGT_grid_arange_gizmogroup)
+    unregister_class(OBJECT_OT_grid_arange)
+
+if __name__ == "__main__":
+    register()

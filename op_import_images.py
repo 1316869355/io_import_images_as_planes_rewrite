@@ -370,3 +370,53 @@ class IIAP_OT_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper)
             print('No image plane created. CANCELLING')
             return {'CANCELLED'}
         return {'FINISHED'}
+
+
+# Import Button
+def btn_import_images(self, context):
+    layout = self.layout
+    layout.operator(IIAP_OT_import_images_as_planes.bl_idname)
+
+
+# Image Editor Button
+def btn_image_to_plane(self, context):
+    layout = self.layout
+    layout.operator(IIAP_OT_image_to_plane.bl_idname)
+
+
+# Node Editor Button
+def btn_texture_image_to_plane(self, context):
+    layout = self.layout
+    if (context.space_data.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
+            and context.space_data.node_tree.nodes.active.image):
+        layout.separator()
+        layout.operator(
+            IIAP_OT_texture_image_to_plane.bl_idname)
+
+
+def register():
+    from bpy.utils import register_class
+    register_class(IIAP_OT_import_images_as_planes)
+    register_class(IIAP_OT_texture_image_to_plane)
+    register_class(IIAP_OT_image_to_plane)
+
+    bpy.types.VIEW3D_MT_mesh_add.prepend(btn_import_images)
+    bpy.types.TOPBAR_MT_file_import.prepend(btn_import_images)
+    bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
+    bpy.types.NODE_PT_active_node_properties.prepend(btn_texture_image_to_plane)
+    bpy.types.NODE_MT_node.append(btn_texture_image_to_plane)
+
+def unregister():
+    from bpy.utils import unregister_class
+    unregister_class(IIAP_OT_image_to_plane)
+    unregister_class(IIAP_OT_texture_image_to_plane)
+    unregister_class(IIAP_OT_import_images_as_planes)
+
+    bpy.types.VIEW3D_MT_mesh_add.remove(btn_import_images)
+    bpy.types.TOPBAR_MT_file_import.remove(btn_import_images)
+    bpy.types.IMAGE_MT_image.remove(btn_image_to_plane)
+    bpy.types.NODE_PT_active_node_properties.remove(btn_texture_image_to_plane)
+    bpy.types.NODE_MT_node.remove(btn_texture_image_to_plane)
+
+if __name__ == "__main__":
+    register()

@@ -46,62 +46,19 @@ from io_import_images_as_planes_rewrite import op_delete_unused_image_datablocks
 from io_import_images_as_planes_rewrite import op_delete_unused_material_datablocks
 
 
-# Import Button
-def btn_import_images(self, context):
-    layout = self.layout
-    layout.operator(op_import_images.IIAP_OT_import_images_as_planes.bl_idname)
-
-
-# Image Editor Button
-def btn_image_to_plane(self, context):
-    layout = self.layout
-    layout.operator(op_import_images.IIAP_OT_image_to_plane.bl_idname)
-
-
-# Node Editor Button
-def btn_texture_image_to_plane(self, context):
-    layout = self.layout
-    if (context.space_data.node_tree.nodes.active.bl_idname == 'ShaderNodeTexImage'
-            and context.space_data.node_tree.nodes.active.image):
-        layout.separator()
-        layout.operator(
-            op_import_images.IIAP_OT_texture_image_to_plane.bl_idname)
-
-
-classes = (
-    op_import_images.IIAP_OT_import_images_as_planes,
-    op_import_images.IIAP_OT_image_to_plane,
-    op_import_images.IIAP_OT_texture_image_to_plane,
-    op_apply_as_decal.OBJECT_OT_apply_as_decal,
-    op_delete_unused_image_datablocks.IIAP_OT_delete_unused_image_datablocks,
-    op_delete_unused_material_datablocks.IIAP_OT_delete_unused_image_datablocks,
-    op_arange_objects.OBJECT_OT_grid_arange,
-    op_arange_objects.OBJECT_GGT_grid_arange_gizmogroup,
-)
-
-
 def register():
-    from bpy.utils import register_class
-    for cls in classes:
-        register_class(cls)
-
-    bpy.types.VIEW3D_MT_mesh_add.prepend(btn_import_images)
-    bpy.types.TOPBAR_MT_file_import.prepend(btn_import_images)
-    bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
-    bpy.types.NODE_PT_active_node_properties.prepend(btn_texture_image_to_plane)
-    bpy.types.NODE_MT_node.append(btn_texture_image_to_plane)
-
+    op_import_images.register()
+    op_arange_objects.register()
+    op_apply_as_decal.register()
+    op_delete_unused_image_datablocks.register()
+    op_delete_unused_material_datablocks.register()
 
 def unregister():
-    from bpy.utils import unregister_class
-    for cls in reversed(classes):
-        unregister_class(cls)
-
-    bpy.types.VIEW3D_MT_mesh_add.remove(btn_import_images)
-    bpy.types.TOPBAR_MT_file_import.remove(btn_import_images)
-    bpy.types.IMAGE_MT_image.remove(btn_image_to_plane)
-    bpy.types.NODE_PT_active_node_properties.remove(btn_texture_image_to_plane)
-    bpy.types.NODE_MT_node.remove(btn_texture_image_to_plane)
+    op_import_images.unregister()
+    op_arange_objects.unregister()
+    op_apply_as_decal.unregister()
+    op_delete_unused_image_datablocks.unregister()
+    op_delete_unused_material_datablocks.unregister()
 
 
 if __name__ == "__main__":

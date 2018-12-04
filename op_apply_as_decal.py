@@ -42,3 +42,15 @@ class OBJECT_OT_apply_as_decal(Operator):
     def invoke(self, context, event):
         self.execute(context)
         return {'FINISHED'}
+
+
+def register():
+    from bpy.utils import register_class
+    register_class(OBJECT_OT_apply_as_decal)
+
+def unregister():
+    from bpy.utils import unregister_class
+    unregister_class(OBJECT_OT_apply_as_decal)
+
+if __name__ == "__main__":
+    register()
