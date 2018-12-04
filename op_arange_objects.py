@@ -87,7 +87,7 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
     bl_label = "Grid Arange Gizmo"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'WINDOW'
-    bl_options = {'3D'}
+    bl_options = {'3D', 'DEPTH_3D', 'TOOL_INIT'}
 
     # Helper functions
     @staticmethod
@@ -97,7 +97,7 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
         if isinstance(op, OBJECT_OT_grid_arange):
             return op
         wm.gizmo_group_type_unlink_delayed(OBJECT_GGT_grid_arange_gizmogroup.bl_idname)
-        print('removed gizmo')
+        # print('removed gizmo')
         return None
 
     @classmethod
@@ -112,15 +112,13 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
         return mat
 
     def setup(self, context):
-        print('SETUP GIZMO')
+        # print('SETUP GIZMO')
         op = OBJECT_GGT_grid_arange_gizmogroup.my_target_operator(context)
 
         def rows_get_cb():
-            # op = OBJECT_GGT_grid_arange_gizmogroup.my_target_operator(context)
             return op.row_count
 
         def rows_set_cb(value):
-            # op = OBJECT_GGT_grid_arange_gizmogroup.my_target_operator(context)
             op.row_count = int(value)
             op.execute(context)
 
@@ -136,6 +134,6 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
 
     def refresh(self, context):
         op = OBJECT_GGT_grid_arange_gizmogroup.my_target_operator(context)
-        print('REFRESHING GIZMO')
+        # print('REFRESHING GIZMO')
         mpr = self.widget_row_count
         mpr.matrix_basis = self.widget_row_count_matrix(context, op)
