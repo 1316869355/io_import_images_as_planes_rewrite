@@ -76,7 +76,7 @@ class OBJECT_OT_grid_arange(Operator):
         self.execute(context)
         if context.space_data.type == 'VIEW_3D':
             wm = context.window_manager
-            wm.gizmo_group_type_add(
+            wm.gizmo_group_type_ensure(
                 OBJECT_GGT_grid_arange_gizmogroup.bl_idname)
             print('ADDED GIZMO')
         return {'FINISHED'}
@@ -96,7 +96,7 @@ class OBJECT_GGT_grid_arange_gizmogroup(GizmoGroup):
         op = wm.operators[-1] if wm.operators else None
         if isinstance(op, OBJECT_OT_grid_arange):
             return op
-        wm.gizmo_group_type_remove(OBJECT_GGT_grid_arange_gizmogroup.bl_idname)
+        wm.gizmo_group_type_unlink_delayed(OBJECT_GGT_grid_arange_gizmogroup.bl_idname)
         print('removed gizmo')
         return None
 
