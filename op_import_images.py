@@ -263,14 +263,16 @@ class IIAP_BASE_class:
             ('EMISSION', 'Emission', ''),
             ('DIFFUSE', 'Diffuse', ''),
             ('PRINCIPLED', 'Principled', '')
-        ]
+        ],
+        description='Set Material Type'
     )
     alpha_mode: EnumProperty(
         name='Alpha Blend Mode',
         items=[
             ('STRAIGHT', 'Straight', ''),
             ('PREMUL', 'Premultiplied', '')
-        ]
+        ],
+        description='Alpha blend mode for the image'
     )
     origin: EnumProperty(
         name='Origin Location',
@@ -280,16 +282,18 @@ class IIAP_BASE_class:
             ('BR', 'Bottom Right', ''),
             ('TR', 'Top Right', ''),
             ('TL', 'Top Left', '')
-        ]
+        ],
+        description='Set the origin Location'
     )
     only_camera: BoolProperty(
         name='Restrict to Camera Rays',
-        default=False
+        default=False,
+        description='Set transparent for non-camera rays'
     )
     reuse_existing: BoolProperty(
         name='Reuse existing datablocks',
-        description='Reuse existing meshes and materials instead of creating new ones.',
         default=True,
+        description='When re-importing an allready loaded image, re-use existing meshes and materials instead of creating new ones.',
     )
 
 
@@ -392,13 +396,13 @@ class IIAP_OT_texture_image_to_plane(IIAP_BASE_class, Operator, AddObjectHelper)
 # Import Button
 def btn_import_images(self, context):
     layout = self.layout
-    layout.operator(IIAP_OT_import_images_as_planes.bl_idname)
+    layout.operator(IIAP_OT_import_images_as_planes.bl_idname, icon='TEXTURE')
 
 
 # Image Editor Button
 def btn_image_to_plane(self, context):
     layout = self.layout
-    layout.operator(IIAP_OT_image_to_plane.bl_idname)
+    layout.operator(IIAP_OT_image_to_plane.bl_idname, icon='TEXTURE')
 
 
 # Node Editor Button
@@ -408,7 +412,7 @@ def btn_texture_image_to_plane(self, context):
             and context.space_data.node_tree.nodes.active.image):
         layout.separator()
         layout.operator(
-            IIAP_OT_texture_image_to_plane.bl_idname)
+            IIAP_OT_texture_image_to_plane.bl_idname, icon='TEXTURE')
 
 
 def register():
@@ -417,6 +421,7 @@ def register():
     register_class(IIAP_OT_texture_image_to_plane)
     register_class(IIAP_OT_image_to_plane)
 
+    bpy.types.VIEW3D_MT_image_add.append(btn_import_images)
     bpy.types.VIEW3D_MT_mesh_add.prepend(btn_import_images)
     bpy.types.TOPBAR_MT_file_import.prepend(btn_import_images)
     bpy.types.IMAGE_MT_image.prepend(btn_image_to_plane)
@@ -429,6 +434,7 @@ def unregister():
     unregister_class(IIAP_OT_texture_image_to_plane)
     unregister_class(IIAP_OT_import_images_as_planes)
 
+    bpy.types.VIEW3D_MT_image_add.remove(btn_import_images)
     bpy.types.VIEW3D_MT_mesh_add.remove(btn_import_images)
     bpy.types.TOPBAR_MT_file_import.remove(btn_import_images)
     bpy.types.IMAGE_MT_image.remove(btn_image_to_plane)
