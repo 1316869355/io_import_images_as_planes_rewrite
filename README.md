@@ -58,3 +58,22 @@ For now the planes are always created with Y-Dimension of 1 with the X-Dimension
 #### Orientation Settings:
 - handled by "AddObjectHelper" now
 - "Track Camera" should also be a secondary Operator in the viewport.
+
+
+
+## New Operators
+
+#### image import operators
+At the moment there are three operators:
+- import images as planes
+  - the normal importing of images
+- plane from image
+  - creates an image plane from the image in the image editor
+- plane from texture
+  - creates an image plane from the selected image texture node in the node editor.
+
+#### Grid Arange
+Aranges selected objects in a 2d grid. Has widget to control number of rows. Still needs widgets to controll offsets.
+
+#### Delete unused datablocks
+One Operator for deleting (unused) images and one for materials. Mainly for devel. Can be turned of for release. Can also delete all datablocks of type.
