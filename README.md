@@ -65,11 +65,11 @@ For now the planes are always created with Y-Dimension of 1 with the X-Dimension
 
 #### image import operators
 At the moment there are three operators:
-- import images as planes [x]
+- [x] import images as planes
   - the normal importing of images
-- plane from image [x]
+- [x] plane from image
   - creates an image plane from the image in the image editor
-- plane from texture [x]
+- [x] plane from texture
   - creates an image plane from the selected image texture node in the node editor.
 
 #### Grid Arange
@@ -80,13 +80,13 @@ One Operator for deleting (unused) images and one for materials. Mainly for deve
 
 
 ## missing Operators
-- Setup Corner pin
+- [ ] Setup Corner pin
   - haven't even ever used that checkbox, need to see what it does
-- Track Camera
+- [ ] Track Camera
 
 
 ## More thoughts
-- maybe add an operator to apply the active image plane to the selected object as a decal
+- [ ] maybe add an operator to apply the active image plane to the selected object as a decal
   - add geometry (real and or susurf modifier)
   - move to surface
   - add shrinkwrap
