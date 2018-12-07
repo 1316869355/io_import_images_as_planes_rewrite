@@ -19,7 +19,7 @@ The thinking is, that maybe it could be better to give more specialized operator
 #### Import Options
 - No thoughts yet if and how to bring back.
   - "Detect Sequences" checkbox seems necessary
-  - "relative path" should also be similar to standard "Open image"
+  - "relative path" should also be similar to standard "Open image" {key Done}
 
 #### Compositing Nodes:
 - "Setup Corner Pin" should maybe be a secondary operator also?
@@ -65,11 +65,11 @@ For now the planes are always created with Y-Dimension of 1 with the X-Dimension
 
 #### image import operators
 At the moment there are three operators:
-- import images as planes
+- import images as planes {key Done}
   - the normal importing of images
-- plane from image
+- plane from image {key Done}
   - creates an image plane from the image in the image editor
-- plane from texture
+- plane from texture {key Done}
   - creates an image plane from the selected image texture node in the node editor.
 
 #### Grid Arange
