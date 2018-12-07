@@ -18,8 +18,8 @@ The thinking is, that maybe it could be better to give more specialized operator
 
 #### Import Options
 - No thoughts yet if and how to bring back.
-  - "Detect Sequences" checkbox seems necessary
-  - "relative path" should also be similar to standard "Open image" [x]
+  - [ ] "Detect Sequences" checkbox seems necessary
+  - [x] "relative path" should also be similar to standard "Open image"
 
 #### Compositing Nodes:
 - "Setup Corner Pin" should maybe be a secondary operator also?
