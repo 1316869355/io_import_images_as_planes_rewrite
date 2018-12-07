@@ -230,11 +230,7 @@ def import_images_as_planes(self, context):
 
         # Check if file is usable image even
 
-        # img = loaded_image(path)
-        # if not img:
-        img = load_image(path, check_existing=True, force_reload=True)
-
-        obj = image_plane_generator(self, context, img)
+        obj = image_to_plane(self, context, path)
         image_planes.append(obj)
 
     return image_planes
@@ -244,12 +240,16 @@ def image_to_plane(self, context, path):
     '''take image path, return image plane object'''
     # Check if file even exists
     if not os.path.exists(path):
-        print('No image found. Filepath not valid.')
+        print('No image found. Filepath not valid:\n{}'.format(path))
         return None
 
-    # img = loaded_image(path)
-    # if not img:
     img = load_image(path, check_existing=True, force_reload=True)
+
+    if self.relative_path and bpy.data.filepath:
+        try:  # can't always find the relative path (between drive letters on windows)
+            img.filepath = bpy.path.relpath(img.filepath)
+        except ValueError:
+            pass
 
     obj = image_plane_generator(self, context, img)
     return obj
@@ -294,6 +294,11 @@ class IIAP_BASE_class:
         name='Reuse existing datablocks',
         default=True,
         description='When re-importing an allready loaded image, re-use existing meshes and materials instead of creating new ones.',
+    )
+    relative_path: BoolProperty(
+        name='Relative Path',
+        default=True,
+        description='Ensure the path is relative'
     )
 
 
