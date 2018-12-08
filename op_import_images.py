@@ -22,10 +22,10 @@ from .util_load_images import (
     load_images,
     ImageSpec
 )
-from .materials import (
+from .util_materials import (
     create_material_for_img_spec,
 )
-from .mesh import (
+from .util_mesh import (
     create_mesh,
     set_mesh_verticies
 )
@@ -180,7 +180,7 @@ def single_image_draw(self, context):
     col.prop(self, 'origin')
     col.prop(self, 'only_camera', toggle=True)
     col.prop(self, 'reuse_existing', toggle=True)
-    
+
     col.separator()
     # col.prop(self, 'view_align') # Does not do anything. could be a bug
     col.prop(self, 'location')
