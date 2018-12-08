@@ -74,7 +74,7 @@ At the moment there are three operators:
 Aranges selected objects in a 2d grid. Has widget to control number of rows. Still needs widgets to controll offsets.
 
 #### Delete unused datablocks
-One Operator for deleting (unused) images and one for materials. Mainly for devel. Can be turned of for release. Can also delete all datablocks of type.
+One Operator for deleting (unused) images and one for materials. Mainly for devel. Can be turned off for release. Can also delete all datablocks of type.
 
 
 ## missing Operators
@@ -85,6 +85,7 @@ One Operator for deleting (unused) images and one for materials. Mainly for deve
 
 ## More thoughts
 - [ ] maybe add an operator to apply the active image plane to the selected object as a decal
-  - add geometry (real and or susurf modifier)
+  - add geometry (real and or subsurf modifier)
   - move to surface
   - add shrinkwrap
+  - set shading settings for blending in
