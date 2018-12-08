@@ -89,3 +89,20 @@ One Operator for deleting (unused) images and one for materials. Mainly for deve
   - move to surface
   - add shrinkwrap
   - set shading settings for blending in
+
+
+## Current Shaders
+Here are them 4 main shader networks. When the Material Type is changed only the (here Emmission) BSDF Shader is swapped out.
+On the Left is the UI in the image editor. Which is nice because the setup can be changed after the fact here and not as with the import only beforehand.
+
+### Standard:
+<img src="devdocs/standard.png">
+
+### Standard with restrict to camera:
+<img src="devdocs/standard-shadeless.png">
+
+### Alpha Standard:
+<img src="devdocs/standard-alpha.png">
+
+### Alpha with restrict to camera:
+<img src="devdocs/standard-alpha-shadeless.png">
