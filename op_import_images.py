@@ -21,8 +21,7 @@ import bmesh
 from mathutils import Matrix, Vector
 
 from .materials import (
-    create_diffuse_material,
-    create_emission_material
+    create_nodes_for_material
 )
 
 BASEVERTS = (
@@ -65,16 +64,6 @@ def delete_nodes_of_bl_idname(nodes, bl_idname):
     for node in nodes:
         if node.bl_idname == bl_idname:
             nodes.remove(node)
-
-
-# def return_material_output_node(nodes):
-#     '''return material output node'''
-#     for node in nodes:
-#         if node.bl_idname == 'ShaderNodeOutputMaterial':
-#             return node
-#     material_output = nodes.new(type='ShaderNodeOutputMaterial')
-#     material_output.location = (300, 300)
-#     return material_output
 
 
 def create_mesh(img):
@@ -124,56 +113,6 @@ def set_mesh_verticies(self, mesh, img):
     bm.to_mesh(mesh)
 
 
-# def create_emission_material(img, material):
-#     '''return emission material without alpha'''
-#     node_tree = material.node_tree
-#     nodes = node_tree.nodes
-#     links = node_tree.links
-
-#     # Set Material Output Node
-#     material_output = return_material_output_node(nodes)
-#     # Add Emission Shader
-#     emmision_shader = nodes.new(type='ShaderNodeEmission')
-#     emmision_shader.location = (0, 300)
-#     # Link emmision_shader Output to material_output Input
-#     links.new(material_output.inputs[0], emmision_shader.outputs[0])
-#     # Add image texture
-#     image_texture = nodes.new(type='ShaderNodeTexImage')
-#     image_texture.image = img
-#     image_texture.location = (-365, 300)
-#     # Link image_texture Output to emmision_shader Input
-#     links.new(emmision_shader.inputs[0], image_texture.outputs[0])
-#     # make texture node the active node
-#     nodes.active = image_texture
-
-#     return material
-
-
-# def create_diffuse_material(img, material):
-#     '''return diffuse material without alpha'''
-#     node_tree = material.node_tree
-#     nodes = node_tree.nodes
-#     links = node_tree.links
-
-#     # Set Material Output Node
-#     material_output = return_material_output_node(nodes)
-#     # Add Emission Shader
-#     diffuse_shader = nodes.new(type='ShaderNodeBsdfDiffuse')
-#     diffuse_shader.location = (0, 300)
-#     # Link diffuse_shader Output to material_output Input
-#     links.new(material_output.inputs[0], diffuse_shader.outputs[0])
-#     # Add image texture
-#     image_texture = nodes.new(type='ShaderNodeTexImage')
-#     image_texture.image = img
-#     image_texture.location = (-365, 300)
-#     # Link image_texture Output to diffuse_shader Input
-#     links.new(diffuse_shader.inputs[0], image_texture.outputs[0])
-#     # make texture node the active node
-#     nodes.active = image_texture
-
-#     return material
-
-
 def create_material(self, img):
     '''take img, return material with image applied'''
     material = exisisting_material(img.name)
@@ -181,20 +120,13 @@ def create_material(self, img):
         material = bpy.data.materials.new(img.name)
     material.use_nodes = True
     node_tree = material.node_tree
-    # nodes = node_tree.nodes
-    # links = node_tree.links
 
     # Delete all but output Node to start clean
     for node in node_tree.nodes:
         if not node.bl_idname == 'ShaderNodeOutputMaterial':
             node_tree.nodes.remove(node)
 
-    # if self.materialtype == 'EMISSION':
-    #     material = create_emission_material(self, img, material)
-    # elif self.materialtype == 'DIFFUSE':
-    #     material = create_emission_material(self, img, material)
-    #     # material = create_diffuse_material(img, material)
-    material = create_emission_material(self, img, material)
+    material = create_nodes_for_material(self, img, material)
     return material
 
 

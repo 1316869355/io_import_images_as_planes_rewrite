@@ -4,7 +4,7 @@ from .utils import (
     hide_socket_toggle,
 )
 
-def create_emission_material(self, img, material):
+def create_nodes_for_material(self, img, material):
     '''return emission material without alpha'''
     node_tree = material.node_tree
     nodes = node_tree.nodes
@@ -107,27 +107,3 @@ def create_emission_material(self, img, material):
 
     return material
 
-
-def create_diffuse_material(img, material):
-    '''return diffuse material without alpha'''
-    node_tree = material.node_tree
-    nodes = node_tree.nodes
-    links = node_tree.links
-
-    # Set Material Output Node
-    material_output = return_material_output_node(nodes)
-    # Add Emission Shader
-    diffuse_shader = nodes.new(type='ShaderNodeBsdfDiffuse')
-    diffuse_shader.location = (0, 300)
-    # Link diffuse_shader Output to material_output Input
-    links.new(material_output.inputs[0], diffuse_shader.outputs[0])
-    # Add image texture
-    image_texture = nodes.new(type='ShaderNodeTexImage')
-    image_texture.image = img
-    image_texture.location = (-365, 300)
-    # Link image_texture Output to diffuse_shader Input
-    links.new(diffuse_shader.inputs[0], image_texture.outputs[0])
-    # make texture node the active node
-    nodes.active = image_texture
-
-    return material
