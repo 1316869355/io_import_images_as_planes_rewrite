@@ -231,7 +231,8 @@ def import_images_as_planes(self, context):
         # Check if file is usable image even
 
         obj = image_to_plane(self, context, path)
-        image_planes.append(obj)
+        if obj:
+            image_planes.append(obj)
 
     return image_planes
 
