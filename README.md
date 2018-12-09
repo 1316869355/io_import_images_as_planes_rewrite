@@ -8,6 +8,11 @@ This is a rewrite of the import images as planes add-on for Blender 2.8
 - The render-engine distinction (Blender Internal -- Cycles) does not matter anymore.
 - Also there are many features in one Operator in the old version. The thinking is, that maybe it could be better to give more specialized operators with not as broad a range. The new "Grid Arange" Operator is allready a good example because it is usefull for more than just the image planes.
 - Already image-planes can now also be created from image-texture nodes and from the Image-Editor.
+- The importer operator should only manage things related to the import
+  - Many of these non-import related functions should be better served with seperate operators with the possibility of interaction and redo. The main limitation of the import operator is that the settings have to be known in advance. If e.g. different alignment options are required the planes have to be deleted and re-imported. This can be better handled in the viewport dirctly.
+    - No compositing nodes setup
+    - no complex distribution of objects in the scene
+    - no camera tracking setup
 
 
 ## Mapping old features to the re-write
@@ -92,7 +97,7 @@ One Operator for deleting (unused) images and one for materials. Mainly for deve
 
 
 ## Current Shaders
-Here are them 4 main shader networks. When the Material Type is changed only the (here Emmission) BSDF Shader is swapped out.
+Here are the 4 main shader networks. When the Material Type is changed only the (here Emmission) BSDF Shader is swapped out.
 On the Left is the UI in the image editor. Which is nice because the setup can be changed after the fact here and not as with the import only beforehand.
 
 ### Standard:
